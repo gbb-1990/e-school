@@ -31,14 +31,12 @@ main{max-width:1240px;margin:22px auto;padding:0 16px}.nav{display:flex;gap:8px;
   <img class="crest" src="logo-sk-sungai-buri.png" alt="Logo SK Sungai Buri"><h1 style="color:#17365f;margin:0">e-SKSB</h1>
   <p class="muted">Sistem Pengurusan Operasi Sekolah<br>SK Sungai Buri · YBB4365</p>
   <form id="loginForm">
-   <input id="schoolCode" value="YBB4365" aria-label="Kod sekolah" required>
-   <input id="userName" placeholder="Nama pengguna (demo)" required>
-   <select id="userRole" style="width:100%;padding:13px;border:1px solid #e4e8ed;border-radius:10px;margin-bottom:12px">
-    <option value="viewer">Guru / Viewer</option><option value="editor">Editor / Penyelaras</option><option value="admin">Admin (demo)</option>
-   </select>
+   <label for="schoolCode" style="display:block;text-align:left;font-size:12px;font-weight:700;color:#263445">KOD SEKOLAH</label>
+   <input id="schoolCode" value="YBB4365" aria-label="Kod sekolah" autocomplete="off" required>
    <button class="primary" style="width:100%">LOG MASUK</button>
   </form>
-  <p class="muted">Prototaip antaramuka. Pengesahan Firebase belum disambungkan.</p>
+  <p class="muted">Akses e-SKSB · SK Sungai Buri</p>
+  <p class="muted">Prototaip antaramuka. Pengesahan kod melalui Firebase belum disambungkan.</p>
  </div>
 </section>
 <div id="app" class="hidden">
@@ -76,7 +74,7 @@ let events=[
 ];
 const $=id=>document.getElementById(id);
 function show(id){["timelineView","calendarView","activityView","attendanceView","settingsView"].forEach(x=>$(x).classList.add("hidden"));$(id).classList.remove("hidden");document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===(id==="timelineView"?"timeline":id==="attendanceView"?"attendance":id==="settingsView"?"settings":"")))}
-$("loginForm").addEventListener("submit",e=>{e.preventDefault();if($("schoolCode").value.trim().toUpperCase()!=="YBB4365"){alert("Kod sekolah tidak tepat.");return}user=$("userName").value.trim();role=$("userRole").value;$("who").textContent=user+" · "+role.toUpperCase();$("login").classList.add("hidden");$("app").classList.remove("hidden");renderTimeline()});
+$("loginForm").addEventListener("submit",e=>{e.preventDefault();if($("schoolCode").value.trim().toUpperCase()!=="YBB4365"){alert("Kod sekolah tidak tepat.");return}user="Warga SK Sungai Buri";role="viewer";$("who").textContent="Akses sekolah";$("login").classList.add("hidden");$("app").classList.remove("hidden");renderTimeline()});
 $("logout").onclick=()=>{ $("app").classList.add("hidden");$("login").classList.remove("hidden") };
 document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{if(b.dataset.view==="settings"&&role!=="admin"){alert("Bahagian Setting hanya untuk pentadbir.");return}show(b.dataset.view==="timeline"?"timelineView":b.dataset.view==="attendance"?"attendanceView":"settingsView")});
 function renderTimeline(){$("countEvents").textContent=events.length;$("timeline").innerHTML=months.map((m,i)=>`<button class="month" data-month="${i}"><strong>${m}</strong><span>${events.filter(e=>new Date(e.date+"T00:00:00").getMonth()===i).length} aktiviti</span></button>`).join("");document.querySelectorAll(".month").forEach(b=>b.onclick=()=>openMonth(+b.dataset.month))}
@@ -92,24 +90,5 @@ $("eventForm").onsubmit=e=>{e.preventDefault();if(role==="viewer")return;events.
 $("editActivity").onclick=()=>alert("Fungsi edit akan disambungkan kepada borang dan Firestore dalam fasa Firebase.");
 $("downloadActivity").onclick=()=>window.print();
 $("addEvent").title="Tambah program, mesyuarat atau tarikh penting";
-</script>
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyCyG2EVV9s2mDLsuNoYMwPEDx6cMhv7bOM",
-    authDomain: "e-sksb.firebaseapp.com",
-    projectId: "e-sksb",
-    storageBucket: "e-sksb.firebasestorage.app",
-    messagingSenderId: "39469643153",
-    appId: "1:39469643153:web:9e34e667e622350cf0d630"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
 </script>
 </body></html>
