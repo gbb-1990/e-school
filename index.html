@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>e-SKSB | Pengurusan Operasi Sekolah</title>
+<style>
+:root{--navy:#17365f;--blue:#214f83;--teal:#6ea5a5;--coral:#f39a95;--gold:#f2c94c;--paper:#f7f5ed;--ink:#263445;--muted:#718096;--line:#e4e8ed;--green:#25865b}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:#f4f6f8;color:var(--ink)}
+button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;font-weight:650}
+.primary{background:var(--navy);color:#fff}.soft{background:#eaf0f6;color:var(--navy)}.outline{background:white;border:1px solid var(--line);color:var(--ink)}
+header{background:var(--navy);color:white;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:5}
+.brand{display:flex;gap:12px;align-items:center}.crest{width:48px;height:48px;object-fit:contain;background:#fff;border-radius:50%;padding:2px;border:2px solid #fff}
+.brand small{display:block;color:#d8e4f1;font-size:11px;margin-top:3px}.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+main{max-width:1240px;margin:22px auto;padding:0 16px}.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.nav button.active{background:var(--navy);color:#fff}
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 4px 18px #1c35500a}
+.hero{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:18px}.hero h1{margin:0;font-size:26px;color:var(--navy)}.muted{color:var(--muted);font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.stat{padding:15px;border-radius:14px;background:#fff;border:1px solid var(--line)}.stat b{display:block;font-size:25px;color:var(--navy);margin-top:5px}
+.timeline{display:grid;grid-template-columns:1fr 1fr;gap:12px}.month{border:0;border-radius:14px;padding:15px;text-align:left;color:white;min-height:85px;display:flex;align-items:center;justify-content:space-between;box-shadow:inset 0 -7px #00000012}.month:nth-child(4n+1),.month:nth-child(4n){background:#6ea5a5}.month:nth-child(4n+2),.month:nth-child(4n+3){background:#f39a95}.month strong{font-family:Georgia,serif;font-size:23px}.month span{font-size:12px;background:#ffffff30;padding:6px 9px;border-radius:20px}
+.month-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.dayname{text-align:center;color:var(--muted);font-size:12px;padding:8px 0}.day{min-height:92px;background:#fafbfd;border:1px solid var(--line);border-radius:10px;padding:7px;text-align:left;overflow:hidden}.day.blank{background:transparent;border:0}.day.today{outline:2px solid var(--gold)}.daynum{font-weight:750;font-size:13px}.event-chip{display:block;margin-top:5px;padding:4px 5px;border-radius:5px;background:#e8f1f5;color:#244c67;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.event-chip.att{background:#e2f2e8;color:#236642}
+.list{display:grid;gap:9px}.item{border:1px solid var(--line);border-radius:12px;padding:13px;display:flex;justify-content:space-between;gap:12px;align-items:center}.item h3{font-size:15px;margin:0 0 5px}.tag{font-size:11px;border-radius:20px;padding:5px 8px;background:#edf2f7;color:#526477;white-space:nowrap}.tag.green{background:#e2f2e8;color:#236642}.tag.amber{background:#fff2d9;color:#916417}
+.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.field input,.field select{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;background:white}
+.modalback{position:fixed;inset:0;background:#0c1b2b88;display:none;align-items:center;justify-content:center;padding:18px;z-index:10}.modal{background:white;border-radius:16px;padding:22px;max-width:480px;width:100%}.modal h2{margin-top:0;color:var(--navy)}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#f8f5e9,#e8eef6)}.loginbox{background:#fff;border-radius:22px;padding:30px;width:min(430px,100%);box-shadow:0 15px 50px #17365f20;text-align:center}.loginbox .crest{margin:0 auto 12px;width:72px;height:72px;font-size:22px}.loginbox input{width:100%;padding:13px;border:1px solid var(--line);border-radius:10px;margin:7px 0 12px}
+.hidden{display:none!important}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.right{margin-left:auto}.section-title{color:var(--navy);margin:0 0 12px}
+@media(min-width:800px){.timeline{grid-template-columns:repeat(3,1fr)}}@media(max-width:650px){header{align-items:flex-start;flex-direction:column}.stats{grid-template-columns:repeat(2,1fr)}.timeline{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.day{min-height:72px;padding:4px}.event-chip{font-size:9px}.hero{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<section id="login" class="login">
+ <div class="loginbox">
+  <img class="crest" src="logo-sk-sungai-buri.png" alt="Logo SK Sungai Buri"><h1 style="color:#17365f;margin:0">e-SKSB</h1>
+  <p class="muted">Sistem Pengurusan Operasi Sekolah<br>SK Sungai Buri · YBB4365</p>
+  <form id="loginForm">
+   <input id="schoolCode" value="YBB4365" aria-label="Kod sekolah" required>
+   <input id="userName" placeholder="Nama pengguna (demo)" required>
+   <select id="userRole" style="width:100%;padding:13px;border:1px solid #e4e8ed;border-radius:10px;margin-bottom:12px">
+    <option value="viewer">Guru / Viewer</option><option value="editor">Editor / Penyelaras</option><option value="admin">Admin (demo)</option>
+   </select>
+   <button class="primary" style="width:100%">LOG MASUK DEMO</button>
+  </form>
+  <p class="muted">Prototaip antaramuka. Pengesahan Firebase belum disambungkan.</p>
+ </div>
+</section>
+<div id="app" class="hidden">
+<header><div class="brand"><img class="crest" src="logo-sk-sungai-buri.png" alt="Logo SK Sungai Buri"><div><b>e-SKSB · SK Sungai Buri</b><small>YBB4365 · Pengurusan Operasi Sekolah</small></div></div><div class="top-actions"><span id="who" class="muted" style="color:#e2eaf3;align-self:center"></span><button class="soft" id="logout">Log keluar</button></div></header>
+<main>
+ <nav class="nav">
+  <button class="active" data-view="timeline">◷ Garis Masa</button>
+  <button data-view="attendance">✓ Kehadiran</button>
+  <button data-view="settings">⚙ Setting</button>
+ </nav>
+ <section id="timelineView">
+  <div class="hero"><div><h1>Interactive Timeline 2027</h1><div class="muted">Kalendar induk program, mesyuarat, tarikh penting dan kehadiran.</div></div><button class="primary" id="addEvent">＋ Tambah aktiviti</button></div>
+  <div class="stats"><div class="stat">Program & aktiviti<b id="countEvents">0</b></div><div class="stat">Bulan aktif<b>12</b></div><div class="stat">Rekod kehadiran<b>—</b></div><div class="stat">Tahun<b>2027</b></div></div>
+  <div id="timeline" class="timeline"></div>
+ </section>
+ <section id="calendarView" class="hidden">
+  <div class="month-head"><div><button class="outline" id="backTimeline">← Garis Masa</button><h1 id="monthTitle" style="color:#17365f;margin:12px 0 0"></h1></div><div class="row"><button class="outline" id="prevMonth">‹</button><button class="outline" id="nextMonth">›</button></div></div>
+  <div class="panel"><div class="row" style="justify-content:space-between;margin-bottom:10px"><b>Paparan kalendar bersepadu</b><span class="muted">Program · Mesyuarat · Tarikh penting · Kehadiran</span></div><div id="calendar" class="calendar"></div></div>
+  <div class="panel" style="margin-top:14px"><h2 class="section-title">Aktiviti bulan ini</h2><div id="monthEvents" class="list"></div></div>
+ </section>
+ <section id="activityView" class="hidden"><div class="row"><button class="outline" id="backMonth">← Kembali ke Kalendar</button><span id="activityAccess" class="tag"></span></div><div class="panel" style="margin-top:14px"><div class="hero"><div><h1 id="activityTitle"></h1><div id="activityMeta" class="muted"></div></div><span id="activityStatus" class="tag amber"></span></div><h3>Maklumat dan dokumen aktiviti</h3><div id="activityDescription" class="muted"></div><div class="row" style="margin-top:16px"><button class="soft" id="editActivity">Edit maklumat</button><button class="outline" id="downloadActivity">Cetak / Simpan PDF</button></div><p class="muted">Subpengisian dan dokumen aktiviti dikawal mengikut tugasan Editor. Guru lain boleh melihat dan memuat turun.</p></div></section>
+ <section id="attendanceView" class="hidden"><div class="hero"><div><h1>Kehadiran Warga Sekolah</h1><div class="muted">Rekod kehadiran dipaparkan bersama kalendar induk.</div></div><button class="outline" id="attendanceCalendar">Lihat kalendar Januari</button></div><div class="stats"><div class="stat">Hadir<b>—</b></div><div class="stat">Cuti diluluskan<b>—</b></div><div class="stat">Tugas rasmi<b>—</b></div><div class="stat">Belum direkod<b>—</b></div></div><div class="panel"><h2 class="section-title">Rekod kehadiran</h2><p class="muted">Dalam versi Firebase, rekod mesin cap jari, permohonan cuti, tugas rasmi dan pembetulan rekod akan dipaparkan di sini.</p><div class="list"><div class="item"><div><h3>Rekod harian</h3><div class="muted">Waktu masuk, keluar dan status.</div></div><span class="tag">Kalendar</span></div><div class="item"><div><h3>Permohonan</h3><div class="muted">Cuti, tugas rasmi dan pembetulan.</div></div><span class="tag">Kelulusan</span></div><div class="item"><div><h3>Laporan</h3><div class="muted">Individu, bulanan dan kategori staf.</div></div><span class="tag">PDF / Excel</span></div></div></div></section>
+ <section id="settingsView" class="hidden"><div class="hero"><div><h1>Setting Sistem</h1><div class="muted">Pengurusan pengguna, peranan dan tugasan aktiviti.</div></div><span class="tag" id="adminBadge">Admin sahaja</span></div><div class="panel"><h2 class="section-title">Kawalan akses</h2><p class="muted">Tetapkan penyelaras/setiausaha sebagai Editor untuk aktiviti tertentu. Pengguna lain kekal Viewer. Akses sebenar mesti dikuatkuasakan oleh Firebase Security Rules.</p><div class="list"><div class="item"><div><h3>Pengurusan pengguna</h3><div class="muted">Guru, AKP dan pekerja.</div></div><span class="tag">Admin</span></div><div class="item"><div><h3>Penyelaras & setiausaha</h3><div class="muted">Tugasan Editor mengikut aktiviti.</div></div><span class="tag">Admin</span></div><div class="item"><div><h3>Tetapan modul kehadiran</h3><div class="muted">Jadual, kategori staf dan penyelarasan rekod.</div></div><span class="tag">Admin</span></div><div class="item"><div><h3>Kalendar dan kategori</h3><div class="muted">Jenis acara, cuti dan tarikh penting.</div></div><span class="tag">Admin</span></div></div></div></section>
+</main></div>
+<div id="modal" class="modalback"><div class="modal"><h2 id="modalTitle">Tambah aktiviti</h2><form id="eventForm"><div class="field"><label>Nama aktiviti</label><input id="eventName" required></div><div class="formgrid"><div class="field"><label>Tarikh</label><input id="eventDate" type="date" required></div><div class="field"><label>Kategori</label><select id="eventType"><option>Program sekolah</option><option>Mesyuarat</option><option>Tarikh penting</option><option>PLC</option><option>Dialog Prestasi</option><option>Program kurikulum</option><option>Program kokurikulum</option></select></div></div><div class="field" style="margin-top:12px"><label>Penyelaras / Editor</label><input id="eventEditor" placeholder="Nama penyelaras"></div><div class="field" style="margin-top:12px"><label>Catatan</label><input id="eventDesc" placeholder="Maklumat ringkas"></div><div class="row" style="justify-content:flex-end;margin-top:18px"><button type="button" class="outline" id="cancelModal">Batal</button><button class="primary">Simpan demo</button></div></form></div></div>
+<script>
+const months=["Januari","Februari","Mac","April","Mei","Jun","Julai","Ogos","September","Oktober","November","Disember"];
+let role="viewer",user="",activeMonth=0,activeEvent=null;
+let events=[
+ {id:1,name:"Program Transisi Tahun 1",date:"2027-01-11",type:"Program sekolah",editor:"Guru A",desc:"Pelaksanaan program transisi murid Tahun 1."},
+ {id:2,name:"Mesyuarat Kurikulum Bil. 1",date:"2027-01-18",type:"Mesyuarat",editor:"Guru B",desc:"Mesyuarat pengurusan kurikulum sekolah."},
+ {id:3,name:"Program Bacaan Pagi",date:"2027-01-25",type:"Program sekolah",editor:"Guru C",desc:"Aktiviti bacaan pagi."},
+ {id:4,name:"Dialog Prestasi",date:"2027-02-08",type:"Dialog Prestasi",editor:"Guru D",desc:"Semakan pencapaian dan tindakan susulan."},
+ {id:5,name:"PLC Bahasa Melayu",date:"2027-03-15",type:"PLC",editor:"Guru E",desc:"Perkongsian amalan pedagogi."}
+];
+const $=id=>document.getElementById(id);
+function show(id){["timelineView","calendarView","activityView","attendanceView","settingsView"].forEach(x=>$(x).classList.add("hidden"));$(id).classList.remove("hidden");document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===(id==="timelineView"?"timeline":id==="attendanceView"?"attendance":id==="settingsView"?"settings":"")))}
+$("loginForm").addEventListener("submit",e=>{e.preventDefault();if($("schoolCode").value.trim().toUpperCase()!=="YBB4365"){alert("Kod sekolah tidak tepat.");return}user=$("userName").value.trim();role=$("userRole").value;$("who").textContent=user+" · "+role.toUpperCase();$("login").classList.add("hidden");$("app").classList.remove("hidden");renderTimeline()});
+$("logout").onclick=()=>{ $("app").classList.add("hidden");$("login").classList.remove("hidden") };
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{if(b.dataset.view==="settings"&&role!=="admin"){alert("Bahagian Setting hanya untuk pentadbir.");return}show(b.dataset.view==="timeline"?"timelineView":b.dataset.view==="attendance"?"attendanceView":"settingsView")});
+function renderTimeline(){$("countEvents").textContent=events.length;$("timeline").innerHTML=months.map((m,i)=>`<button class="month" data-month="${i}"><strong>${m}</strong><span>${events.filter(e=>new Date(e.date+"T00:00:00").getMonth()===i).length} aktiviti</span></button>`).join("");document.querySelectorAll(".month").forEach(b=>b.onclick=()=>openMonth(+b.dataset.month))}
+function openMonth(i){activeMonth=i;show("calendarView");renderCalendar()}
+function renderCalendar(){const y=2027,m=activeMonth; $("monthTitle").textContent=months[m]+" 2027";let first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();let html=["Aha","Isn","Sel","Rab","Kha","Jum","Sab"].map(d=>`<div class="dayname">${d}</div>`).join("");let offset=(first+6)%7;for(let n=0;n<offset;n++)html+='<div class="day blank"></div>';for(let d=1;d<=days;d++){let date=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;let ev=events.filter(e=>e.date===date);html+=`<button class="day" data-date="${date}"><span class="daynum">${d}</span>${ev.map(e=>`<span class="event-chip">${e.name}</span>`).join("")}${d%7===0?'<span class="event-chip att">Kehadiran</span>':''}</button>`} $("calendar").innerHTML=html;document.querySelectorAll(".day[data-date]").forEach(b=>b.onclick=()=>showDay(b.dataset.date));let list=events.filter(e=>+e.date.slice(5,7)===m+1);$("monthEvents").innerHTML=list.length?list.map(e=>`<div class="item"><div><h3>${e.name}</h3><div class="muted">${e.date} · ${e.type} · Editor: ${e.editor||"Belum ditetapkan"}</div></div><button class="soft" onclick="openEvent(${e.id})">Buka</button></div>`).join(""):'<p class="muted">Tiada aktiviti direkodkan untuk bulan ini.</p>'}
+function showDay(date){let dayEvents=events.filter(e=>e.date===date);alert(date+"\\n"+(dayEvents.map(e=>e.name+" ("+e.type+")").join("\\n")||"Tiada aktiviti.")+"\\n\\nRekod kehadiran: dibuka melalui modul Kehadiran dalam versi penuh.");}
+function openEvent(id){activeEvent=events.find(e=>e.id===id);show("activityView");$("activityTitle").textContent=activeEvent.name;$("activityMeta").textContent=activeEvent.date+" · "+activeEvent.type+" · Editor: "+(activeEvent.editor||"Belum ditetapkan");$("activityDescription").textContent=activeEvent.desc||"Tiada catatan.";let canEdit=role==="admin"||role==="editor"||(activeEvent.editor&&activeEvent.editor.toLowerCase()===user.toLowerCase());$("activityAccess").textContent=canEdit?"Akses Editor":"Akses Viewer";$("activityStatus").textContent="Dalam proses";$("editActivity").classList.toggle("hidden",!canEdit)}
+window.openEvent=openEvent;
+$("backTimeline").onclick=()=>{show("timelineView");renderTimeline()};$("backMonth").onclick=()=>openMonth(activeMonth);$("prevMonth").onclick=()=>openMonth((activeMonth+11)%12);$("nextMonth").onclick=()=>openMonth((activeMonth+1)%12);$("attendanceCalendar").onclick=()=>openMonth(0);
+$("addEvent").onclick=()=>{if(role==="viewer"){alert("Hanya Admin atau Editor boleh menambah aktiviti.");return}$("modal").style.display="flex"};
+$("cancelModal").onclick=()=>$("modal").style.display="none";
+$("eventForm").onsubmit=e=>{e.preventDefault();if(role==="viewer")return;events.push({id:Date.now(),name:$("eventName").value,date:$("eventDate").value,type:$("eventType").value,editor:$("eventEditor").value||user,desc:$("eventDesc").value});$("modal").style.display="none";e.target.reset();renderTimeline();if(!$("calendarView").classList.contains("hidden"))renderCalendar()};
+$("editActivity").onclick=()=>alert("Fungsi edit akan disambungkan kepada borang dan Firestore dalam fasa Firebase.");
+$("downloadActivity").onclick=()=>window.print();
+$("addEvent").title="Tambah program, mesyuarat atau tarikh penting";
+</script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCyG2EVV9s2mDLsuNoYMwPEDx6cMhv7bOM",
+    authDomain: "e-sksb.firebaseapp.com",
+    projectId: "e-sksb",
+    storageBucket: "e-sksb.firebasestorage.app",
+    messagingSenderId: "39469643153",
+    appId: "1:39469643153:web:9e34e667e622350cf0d630"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
+</body></html>

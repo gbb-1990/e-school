@@ -1,0 +1,26 @@
+// firestore.rules.example
+// Rangka awal sahaja — perlu disemak dan diuji sebelum deployment.
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+    function isAdmin() {
+      return signedIn() && request.auth.token.role == 'admin';
+    }
+    match /activities/{activityId} {
+      allow read: if signedIn();
+      // Pengeluaran sebenar perlu menyemak tugasan Editor aktiviti di backend.
+      allow create, update, delete: if isAdmin();
+    }
+    match /users/{userId} {
+      allow read: if signedIn() && (request.auth.uid == userId || isAdmin());
+      allow write: if isAdmin();
+    }
+    match /attendance/{recordId} {
+      allow read: if signedIn() && (isAdmin() || resource.data.ownerUid == request.auth.uid);
+      allow write: if isAdmin();
+    }
+  }
+}
